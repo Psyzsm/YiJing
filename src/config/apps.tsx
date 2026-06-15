@@ -26,22 +26,33 @@ export interface AppConfig {
 // ----------------------------------------------------------------------
 // [DEFENSIVE PROGRAMMING & TYPE SAFETY]
 // ----------------------------------------------------------------------
-// Define a strict but fully optional interface for the OS Configuration.
-// If an end-user accidentally deletes the entire "skills" block from their 
-// yijing.config.ts file, this ensures the React compiler simply skips it 
-// instead of throwing a fatal undefined error and crashing the website.
+interface BaseApp {
+  id: string;
+  title: string;
+  icon: string;
+  type: "text" | "list" | "iframe";
+}
+
+interface TextApp extends BaseApp {
+  type: "text";
+  header?: string;
+  content: string[];
+}
+
+interface ListApp extends BaseApp {
+  type: "list";
+  categories: { name: string; items: string[] }[];
+}
+
+interface IframeApp extends BaseApp {
+  type: "iframe";
+  url: string;
+}
+
+type CustomApp = TextApp | ListApp | IframeApp;
+
 interface SafeOSConfig {
-  about?: {
-    title: string;
-    icon: string;
-    header: string;
-    paragraphs: string[];
-  };
-  skills?: {
-    title: string;
-    icon: string;
-    categories: { name: string; items: string[] }[];
-  };
+  customApps?: CustomApp[];
   systemApps?: {
     enableWorks?: boolean;
     enableContact?: boolean;
@@ -56,51 +67,72 @@ const buildApps = (): AppConfig[] => {
   // Cast the raw user config through the Defensive Interface
   const os = (yijingConfig.os as unknown) as SafeOSConfig;
 
-  // 1. Compile the "About" App
-  if (os?.about) {
-    generatedApps.push({
-      id: "about",
-      title: os.about.title,
-      icon: getIconRenderer(os.about.icon),
-      content: (
-        <div className="p-5 text-[13px] text-charcoal-900 leading-relaxed flex-1 overflow-y-auto font-medium">
-          <h3 className="text-[16px] font-bold mb-3 text-charcoal-950">{os.about.header}</h3>
-          {os.about.paragraphs.map((text: string, i: number) => (
-            <p key={i} className="mb-3">{text}</p>
-          ))}
-        </div>
-      )
-    });
-  }
+  // ----------------------------------------------------------------------
+  // 1. DYNAMIC PARSER ENGINE (Compiles Custom Apps)
+  // ----------------------------------------------------------------------
+  if (os?.customApps && Array.isArray(os.customApps)) {
+    os.customApps.forEach((app) => {
+      let appContent: React.ReactNode = null;
 
-  // 2. Compile the "Skills" App
-  if (os?.skills) {
-    generatedApps.push({
-      id: "skills",
-      title: os.skills.title,
-      icon: getIconRenderer(os.skills.icon),
-      content: (
-        <div className="p-5 text-[13px] text-charcoal-900 leading-relaxed flex-1 overflow-y-auto font-medium">
-          {os.skills.categories.map((cat: { name: string; items: string[] }, i: number) => (
-            <div key={i} className="mb-5">
-              <h4 className="text-[11px] font-bold text-charcoal-600 tracking-wider mb-2 uppercase">{cat.name}</h4>
-              <div className="flex flex-wrap gap-1.5">
-                {cat.items.map((item: string) => (
-                  <span key={item} className="px-2 py-1 bg-charcoal-200/50 border border-charcoal-300 rounded-md text-[11px] text-charcoal-950 font-bold">{item}</span>
-                ))}
+      // Type 1: Text App (Like 'About' or 'Philosophy')
+      if (app.type === "text") {
+        appContent = (
+          <div className="p-5 text-[13px] text-charcoal-900 leading-relaxed flex-1 overflow-y-auto font-medium">
+            {app.header && <h3 className="text-[16px] font-bold mb-3 text-charcoal-950">{app.header}</h3>}
+            {app.content?.map((text: string, i: number) => (
+              <p key={i} className="mb-3">{text}</p>
+            ))}
+          </div>
+        );
+      } 
+      
+      // Type 2: List App (Like 'Skills' or 'Tech Stack')
+      else if (app.type === "list") {
+        appContent = (
+          <div className="p-5 text-[13px] text-charcoal-900 leading-relaxed flex-1 overflow-y-auto font-medium">
+            {app.categories?.map((cat, i: number) => (
+              <div key={i} className="mb-5">
+                <h4 className="text-[11px] font-bold text-charcoal-600 tracking-wider mb-2 uppercase">{cat.name}</h4>
+                <div className="flex flex-wrap gap-1.5">
+                  {cat.items?.map((item: string) => (
+                    <span key={item} className="px-2 py-1 bg-charcoal-200/50 border border-charcoal-300 rounded-md text-[11px] text-charcoal-950 font-bold">{item}</span>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      )
+            ))}
+          </div>
+        );
+      } 
+      
+      // Type 3: Iframe App (Like Spotify 'Radio' or YouTube)
+      else if (app.type === "iframe") {
+        appContent = (
+          <div className="w-full h-full flex flex-col bg-charcoal-950">
+            <iframe 
+              src={app.url} 
+              className="w-full h-full border-0" 
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+              loading="lazy"
+            />
+          </div>
+        );
+      }
+
+      // Inject the compiled React Node into the final OS Array
+      if (appContent) {
+        generatedApps.push({
+          id: app.id,
+          title: app.title,
+          icon: getIconRenderer(app.icon),
+          content: appContent
+        });
+      }
     });
   }
 
   // ----------------------------------------------------------------------
-  // [FEATURE FLAGS]
+  // 2. SYSTEM APPS (Hardcoded logic blocks)
   // ----------------------------------------------------------------------
-  // System apps execute complex API calls. Allowing users to disable them 
-  // entirely via the config file if they don't want to set up Ghost CMS or SMTP.
   if (os?.systemApps?.enableWorks) {
     generatedApps.push({ id: "works", title: "Works", icon: getIconRenderer('works'), content: <WorksAppContent /> });
   }

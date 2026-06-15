@@ -10,17 +10,18 @@
  * ============================================================================
  */
 
+import { yijingConfig } from "../../yijing.config"; 
+
 export const siteConfig = {
-  title: "{{ AUTHOR_NAME }} | {{ SITE_TAGLINE }}",
-  description: "Portfolio of a {{ ROLE_OR_MAJOR }} specializing in {{ FOCUS_AREA_1 }}, {{ FOCUS_AREA_2 }}, and {{ FOCUS_AREA_3 }}.",
-  
+  title: yijingConfig.site.title,
+  description: yijingConfig.site.description,
   // [SEO]: OpenGraph data ensures rich previews when the portfolio is shared 
   // on LinkedIn, X/Twitter, Discord, or iMessage.
-  openGraph: {
-    title: "{{ AUTHOR_NAME }} | {{ OG_TITLE_SUFFIX }}",
-    description: "Interactive portfolio detailing my {{ FOCUS_AREA_1 }}, {{ FOCUS_AREA_2 }}, and {{ FOCUS_AREA_3 }} builds.",
-    url: "https://{{ YOUR_DOMAIN }}/",
-    siteName: "{{ AUTHOR_NAME }} Portfolio",
+openGraph: {
+    title: yijingConfig.site.title,
+    description: yijingConfig.site.description,
+    url: yijingConfig.site.url,
+    siteName: yijingConfig.site.title,
   }
 };
 
