@@ -1,24 +1,36 @@
-# Yìjìng OS (意境)
+# Yìjìng OS
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Framework: Next.js](https://img.shields.io/badge/Framework-Next.js_14-black)](https://nextjs.org/)
 [![Infrastructure: Docker](https://img.shields.io/badge/Infrastructure-Docker-blue)](https://www.docker.com/)
 [![CMS: Ghost](https://img.shields.io/badge/CMS-Ghost-ghost)](https://ghost.org/)
 
-**A Containerized, Web-Based Desktop Environment & Topology Router**
+**A containerized web-based desktop environment inspired by operating system interfaces.**
 
-https://github.com/user-attachments/assets/775c2f24-154f-4d1e-937b-c2a14213d65b
+https://github.com/user-attachments/assets/ee061c3a-d40b-420a-93aa-c7425b64f548
 
-**[Live Demonstration](https://demo.psyzsm.com) | Architecture Documentation(W.I.P)**
+**[Live Demonstration](https://demo.psyzsm.com) | Architecture Documentation (W.I.P)**
 
 Yìjìng OS explores an alternative navigation paradigm where applications, documents, and routes are represented as a living topology graph rather than traditional menus. It serves both as a single-user portfolio platform and an experiment in web-native desktop environments.
 
-## Core Architecture
+## Why I Built This
 
-* **Dynamic Theming Engine:** The system automatically extracts color palettes from the background image, and applies a dynamic Tailwind CSS variables to re-theme the entire OS environment during build time.
-* **Topology Router (Mindmap):** A 60FPS physics-based force-directed graph built on D3.js, replacing standard UI navigation with an interactive, node-based routing layer.
-* **Automated CMS Provisioning:** A pre-configured Docker pipeline that spins up an isolated Ghost CMS instance (using SQLite) and pipes architecture documentation directly into the OS Desktop via a REST API.
-* **Zero-Trust Contact Vault:** A cryptographic Proof-of-Work (Altcha) protected SMTP email vault designed to mitigate automated scraping and recruiter spam.
+Yìjìng OS started as a personal experiment. I wanted a self-hostable web desktop that could function as both a portfolio and a knowledge environment, but I couldn't find an existing project that combined those ideas in a way I wanted to deploy myself. So with that, I began building one from scratch. It started as a personal tool that turned into an exploration of graph-based navigation, self-hosted infrastructure, and web-native desktop environments, eventually becoming an open-source project.
+
+## Core Features
+
+* **Automatic Theme Extraction:** The system automatically extracts color palettes from your uploaded background wallpaper and generates dynamic Tailwind CSS variables to re-theme the entire environment at build time.
+* **Graph-Based Navigation:** A 60FPS physics-based force-directed graph built on D3.js, replacing standard UI navigation with an interactive routing layer.
+* **Built-in Ghost CMS:** A pre-configured Docker pipeline that spins up an isolated Ghost CMS instance (using SQLite) and pipes your writing directly into the desktop via a REST API.
+* **Spam-Resistant Contact Form:** Protected by Altcha proof-of-work challenges to mitigate automated scraping and recruiter spam without relying on third-party tracking or CAPTCHA puzzles.
+
+## Gallery
+
+| Desktop Environment | Topology Router |
+| :---: | :---: |
+| ![Desktop Overview](https://blog.psyzsm.com/content/images/size/w1600/2026/06/Screenshot-2026-06-15-150616.png) | ![Topology Router](https://blog.psyzsm.com/content/images/size/w1600/2026/06/Screenshot-2026-06-15-150535.png) |
+| **Mobile Mode** | **Ghost CMS Integration** |
+| ![Mobile Mode](https://blog.psyzsm.com/content/images/2026/06/Screenshot-2026-06-15-150643.png) | ![Ghost Integration](https://blog.psyzsm.com/content/images/size/w1600/2026/06/Screenshot-2026-06-15-150744.png) |
 
 ### Infrastructure Topology
 
@@ -57,7 +69,7 @@ If deploying to a live server, ensure your environment meets the following speci
 > sudo fallocate -l 2G /swapfile && sudo chmod 600 /swapfile && sudo mkswap /swapfile && sudo swapon /swapfile
 > ```
 >
-> Besure the run the continued line to make this swap file permanent:
+> Besure the run this line to make this swap file permanent across reboots:
 > ```
 > echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 > ```
@@ -71,8 +83,16 @@ mkdir -p yijing && cd yijing && curl -sL [https://api.github.com/repos/Psyzsm/Yi
 
 _The setup routine will configure Caddy, generate cryptographic HMAC parameters, construct the Docker Compose manifest, and map persistent volumes._
 
-## Local Development (Non-Docker)
+## Configuration & Personalization
+Personal data, social links, and application lists are centralized. To personalize your portfolio, copy the template and edit it:
 
+```
+cp yijing.config.example.ts yijing.config.ts
+nano yijing.config.ts
+```
+_The core site.ts auto-imports from this configuration file, meaning you never have to manually edit the React components to personalize your portfolio._
+
+## Local Development (Non-Docker)
 If you wish to modify the React components or test themes locally without spinning up the entire container stack:
 
 ```
@@ -86,8 +106,7 @@ pnpm install
 # Run the development server
 pnpm dev
 ```
-
-_(Note: Local development defaults to mock data if the Ghost CMS environment variables are missing from your `.env.local` file)._
+_(Note: Local development defaults to mock data if the Ghost CMS environment variables are missing from your .env.local file)._
 
 ## Environment Variables Reference
 
