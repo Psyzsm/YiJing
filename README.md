@@ -35,7 +35,6 @@ Internet
    │
    └──► [ Ghost CMS Container ] (Port 2368)
           └── SQLite Database (Persistent Volume)
-
 ```
 
 ## System Prerequisites
@@ -86,7 +85,6 @@ pnpm install
 
 # Run the development server
 pnpm dev
-
 ```
 
 _(Note: Local development defaults to mock data if the Ghost CMS environment variables are missing from your `.env.local` file)._
