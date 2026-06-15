@@ -1,0 +1,91 @@
+/**
+ * ============================================================================
+ * MASTER STYLING REGISTRY & CSS CASCADE
+ * ============================================================================
+ * @file globals.css
+ * @description
+ * The foundation of the Yìjìng OS aesthetic. This file configures Tailwind v4,
+ * establishes the core color palette, and implements a CSS Cascade 
+ * to ensure the UI never loads without a theme.
+ * ============================================================================
+ */
+
+@import "tailwindcss";
+
+/* --------------------------------------------------------------------------
+   1. [RESILIENCY]: THE YÌJÌNG DEFAULT THEME (INK-WASH)
+   If the Node.js vibrant extractor fails during the CI/CD build, or if the 
+   user accidentally deletes theme-dynamic.css, the CSS Cascade guarantees 
+   the OS will fall back to hardcoded defaults. 
+   ensuring no "Flash of Unstyled Content" (FOUC) occurs.
+   -------------------------------------------------------------------------- */
+:root {
+  --color-sys-dominant: #fc2403; /* The signature Vermilion Red */
+  --color-sys-muted: #71717a;    /* Charcoal Muted */
+  --color-sys-dark: #111313;     /* Deep Ink Black */
+  --color-sys-light: #fdf3e8;    /* Antique Rice Paper */
+}
+
+/* --------------------------------------------------------------------------
+   2. [CSS CASCADE]: THE DYNAMIC OVERRIDE
+   Because this file is imported AFTER the :root variables above, the browser's 
+   CSS Cascade engine will safely overwrite the defaults with the user's custom 
+   colors extracted at build-time.
+   -------------------------------------------------------------------------- */
+@import './theme-dynamic.css';
+
+/* --------------------------------------------------------------------------
+   3. [DESIGN SYSTEM]: TAILWIND V4 THEME ENGINE
+   Maps Tailwind utility classes directly to the dynamic CSS variables.
+   Using color-mix() to generate all hover/active 
+   shades from the 4 base extracted colors
+   -------------------------------------------------------------------------- */
+@theme {
+  /* THE LIGHT GLASS (Dynamic Antique) */
+  --color-antique-50: var(--color-sys-light);
+  --color-antique-50: color-mix(in srgb, var(--color-sys-light) 15%, #fdf3e8);
+  --color-antique-100: color-mix(in srgb, var(--color-sys-light) 25%, #fbe6d0);
+  --color-antique-200: color-mix(in srgb, var(--color-sys-light) 40%, #f6cda2);
+  --color-antique-300: color-mix(in srgb, var(--color-sys-light) 55%, #f2b573);
+
+  /* THE ACCENT (Dynamic Blush) */
+  --color-blush-50: color-mix(in srgb, var(--color-sys-dominant) 10%, white);
+  --color-blush-100: color-mix(in srgb, var(--color-sys-dominant) 20%, white);
+  --color-blush-200: color-mix(in srgb, var(--color-sys-dominant) 40%, white);
+  --color-blush-300: color-mix(in srgb, var(--color-sys-dominant) 60%, white);
+  --color-blush-400: color-mix(in srgb, var(--color-sys-dominant) 80%, white);
+  --color-blush-500: var(--color-sys-dominant);
+  --color-blush-600: color-mix(in srgb, var(--color-sys-dominant) 85%, black);
+  --color-blush-700: color-mix(in srgb, var(--color-sys-dominant) 70%, black);
+  --color-blush-800: color-mix(in srgb, var(--color-sys-dominant) 55%, black);
+  --color-blush-900: color-mix(in srgb, var(--color-sys-dominant) 40%, black);
+  --color-blush-950: color-mix(in srgb, var(--color-sys-dominant) 25%, black);
+
+  /* THE TEXT/BORDERS (Dynamic Charcoal) */
+  --color-charcoal-50: color-mix(in srgb, var(--color-sys-muted) 10%, white);
+  --color-charcoal-100: color-mix(in srgb, var(--color-sys-muted) 20%, white);
+  --color-charcoal-200: color-mix(in srgb, var(--color-sys-muted) 35%, white);
+  --color-charcoal-300: color-mix(in srgb, var(--color-sys-muted) 50%, white);
+  --color-charcoal-400: color-mix(in srgb, var(--color-sys-muted) 75%, white);
+  --color-charcoal-500: var(--color-sys-muted);
+  --color-charcoal-600: color-mix(in srgb, var(--color-sys-dark) 40%, var(--color-sys-muted));
+  --color-charcoal-700: color-mix(in srgb, var(--color-sys-dark) 60%, var(--color-sys-muted));
+  --color-charcoal-800: color-mix(in srgb, var(--color-sys-dark) 80%, var(--color-sys-muted));
+  --color-charcoal-900: color-mix(in srgb, var(--color-sys-dark) 90%, black);
+  --color-charcoal-950: var(--color-sys-dark);
+
+  /* Background Image Mapping */
+  --background-image-desktop-bg: url('/assets/background.jpg');
+}
+
+/* --------------------------------------------------------------------------
+   4. [BROWSER RESET]
+   Locks the viewport dimensions to strictly prevent native scrolling, forcing 
+   users to interact with the react-rnd application windows instead.
+   -------------------------------------------------------------------------- */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}

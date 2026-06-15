@@ -1,0 +1,40 @@
+{
+  "name": "yijing",
+  "version": "0.1.0",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "node scripts/extract-theme.cjs && next dev",
+    "build": "node scripts/extract-theme.cjs && next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "altcha": "^3.0.10",
+    "altcha-lib": "^2.2.0",
+    "d3-force": "^3.0.0",
+    "lucide-react": "^1.17.0",
+    "next": "16.2.6",
+    "nodemailer": "^8.0.9",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "react-force-graph-2d": "^1.29.1",
+    "react-rnd": "^10.5.3"
+  },
+"devDependencies": {
+    "@tailwindcss/postcss": "^4.3.0",
+    "@types/d3-force": "^3.0.10",
+    "@types/node": "^20",
+    "@types/nodemailer": "^8.0.0",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "autoprefixer": "^10.5.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.6",
+    "node-vibrant": "^4.0.4",
+    "postcss": "^8.5.15",
+    "tailwindcss": "^4.3.0",
+    "typescript": "^5"
+  },
+  "packageManager": "pnpm@11.5.3+sha512.7ac1c919341c213a34dc0d02afb7143c5c26ac26ee8c4782deea821b8ac64d2134a081fd8941dae6e29bbb48f58dfc2b7fbceeccc07cb2f09d219d342a4969ed"
+}

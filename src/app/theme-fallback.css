@@ -1,0 +1,19 @@
+/**
+ * ============================================================================
+ * BASE THEME CONFIGURATION (STATIC FALLBACK)
+ * ============================================================================
+ * @file theme-fallback.css
+ * @description
+ * Provides the static color variables for the Yìjìng OS aesthetic.
+ * If the dynamic image extraction pipeline fails during CI/CD, or if a user 
+ * prefers not to use dynamic theming, these variables ensure the interface 
+ * remains legible and styled.
+ * ============================================================================
+ */
+
+:root {
+  --color-sys-dominant: #fc2403; /* The signature Vermilion Red */
+  --color-sys-muted: #71717a;    /* Charcoal Muted */
+  --color-sys-dark: #111313;     /* Deep Ink Black */
+  --color-sys-light: #fdf3e8;    /* Antique Rice Paper */
+}
