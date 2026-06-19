@@ -7,7 +7,7 @@
 
 **A containerized web-based desktop environment inspired by operating system interfaces.**
 
-https://github.com/user-attachments/assets/ee061c3a-d40b-420a-93aa-c7425b64f548
+https://github.com/user-attachments/assets/ccf58764-524c-4fdd-bc02-9f961eb77857
 
 **[Live Demonstration](https://demo.psyzsm.com) | Architecture Documentation (W.I.P)**
 
