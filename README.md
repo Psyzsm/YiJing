@@ -1,4 +1,4 @@
-# Yìjìng (意境) Web Environment
+# Yìjìng (意境) OS
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Framework: Next.js](https://img.shields.io/badge/Framework-Next.js_14-black)](https://nextjs.org/)
