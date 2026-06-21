@@ -1,21 +1,21 @@
-# Yìjìng OS
+# Yìjìng (意境) Web Environment
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Framework: Next.js](https://img.shields.io/badge/Framework-Next.js_14-black)](https://nextjs.org/)
 [![Infrastructure: Docker](https://img.shields.io/badge/Infrastructure-Docker-blue)](https://www.docker.com/)
 [![CMS: Ghost](https://img.shields.io/badge/CMS-Ghost-ghost)](https://ghost.org/)
 
-**A containerized web-based desktop environment inspired by operating system interfaces.**
+**A containerized web-based desktop environment inspired by Hyprland and KDE Plasma.**
 
 https://github.com/user-attachments/assets/09cdc587-5538-453c-8169-8d987e583446
 
 **[Live Demonstration](https://demo.psyzsm.com) | Architecture Documentation (W.I.P)**
 
-Yìjìng OS explores an alternative navigation paradigm where applications, documents, and routes are represented as a living topology graph rather than traditional menus. It serves both as a single-user portfolio platform and an experiment in web-native desktop environments.
+Yìjìng OS explores an alternative navigation paradigm where applications, documents, and routes are represented as a dynamic topology graph rather than traditional menus. This serves both as a single-user portfolio platform and an experiment in web-native desktop environments.
 
 ## Why I Built This
 
-Yìjìng OS started as a personal experiment. I wanted a self-hostable web desktop that could function as both a portfolio and a knowledge environment, but I couldn't find an existing project that combined those ideas in a way I wanted to deploy myself. So with that, I began building one from scratch. It started as a personal tool that turned into an exploration of graph-based navigation, self-hosted infrastructure, and web-native desktop environments, eventually becoming an open-source project.
+Yìjìng OS started as a personal experiment. I wanted a self-hostable web desktop that could function as both a portfolio and a knowledge environment, but I couldn't find an existing project that combined these ideas in a way I wanted to deploy myself. So with that, I began building one from scratch. With it starting as a personal tool that slowly turned into a graph-based navigation, self-hosted infrastructure, and web-native desktop environment, eventually becoming an open-source project so others can utilize it too.
 
 ## Core Features
 
