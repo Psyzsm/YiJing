@@ -16,7 +16,7 @@ import React, { useState, useEffect } from "react";
 import { Rnd } from "react-rnd";
 import { MinimizeIcon, MaximizeIcon, CloseIcon, StartIcon } from "@/components/icons"; 
 import { APPS, type AppConfig } from "@/config/apps";
-import { THEME } from "@/config/site";
+import { THEME, siteConfig } from "@/config/site";
 
 // ----------------------------------------------------------------------
 // TYPESCRIPT INTERFACES (THE API CONTRACTS)
@@ -134,8 +134,8 @@ export default function Desktop() {
       {isStartMenuOpen && <div className="absolute inset-0 z-40" onClick={() => setIsStartMenuOpen(false)} />}
       
       {/* Top Status Bar */}
-      <div className="absolute top-0 left-0 right-0 h-8 flex items-center justify-center bg-antique-50/60 backdrop-blur-md text-[12px] tracking-widest text-charcoal-950 font-bold z-50 border-b border-charcoal-300">
-        Psyzsm - PORTFOLIO
+      <div className="absolute top-0 left-0 right-0 h-8 flex items-center justify-center bg-antique-50/60 backdrop-blur-md text-[12px] tracking-widest text-charcoal-950 font-bold z-50 border-b border-charcoal-300 uppercase">
+        {siteConfig.title}
       </div>
 
       {/* Desktop Grid Area */}
