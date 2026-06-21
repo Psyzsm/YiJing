@@ -9,13 +9,15 @@
 
 https://github.com/user-attachments/assets/09cdc587-5538-453c-8169-8d987e583446
 
-**[Live Demonstration](https://demo.psyzsm.com) | Architecture Documentation (W.I.P)**
+**[Live Demonstration](https://demo.psyzsm.com) | [Architecture Documentation](https://blog.psyzsm.com/yijing/)**
 
 Yìjìng OS explores an alternative navigation paradigm where applications, documents, and routes are represented as a dynamic topology graph rather than traditional menus. This serves both as a single-user portfolio platform and an experiment in web-native desktop environments.
+
 
 ## Why I Built This
 
 Yìjìng OS started as a personal experiment. I wanted a self-hostable web desktop that could function as both a portfolio and a knowledge environment, but I couldn't find an existing project that combined these ideas in a way I wanted to deploy myself. So with that, I began building one from scratch. With it starting as a personal tool that slowly turned into a graph-based navigation, self-hosted infrastructure, and web-native desktop environment, eventually becoming an open-source project so others can utilize it too.
+
 
 ## Core Features
 
@@ -24,6 +26,7 @@ Yìjìng OS started as a personal experiment. I wanted a self-hostable web deskt
 * **Built-in Ghost CMS:** A pre-configured Docker pipeline that spins up an isolated Ghost CMS instance (using SQLite) and pipes your writing directly into the desktop via a REST API.
 * **Spam-Resistant Contact Form:** Protected by Altcha proof-of-work challenges to mitigate automated scraping and recruiter spam without relying on third-party tracking or CAPTCHA puzzles.
 
+
 ## Gallery
 
 | Desktop Environment | Topology Router |
@@ -31,6 +34,7 @@ Yìjìng OS started as a personal experiment. I wanted a self-hostable web deskt
 | ![Desktop Overview](https://blog.psyzsm.com/content/images/size/w1600/2026/06/Screenshot-2026-06-15-150616.png) | ![Topology Router](https://blog.psyzsm.com/content/images/size/w1600/2026/06/Screenshot-2026-06-15-150535.png) |
 | **Mobile Mode** | **Ghost CMS Integration** |
 | ![Mobile Mode](https://blog.psyzsm.com/content/images/2026/06/Screenshot-2026-06-15-150643.png) | ![Ghost Integration](https://blog.psyzsm.com/content/images/size/w1600/2026/06/Screenshot-2026-06-15-150744.png) |
+
 
 ### Infrastructure Topology
 
@@ -48,6 +52,7 @@ Internet
    └──► [ Ghost CMS Container ] (Port 2368)
           └── SQLite Database (Persistent Volume)
 ```
+
 
 ## System Prerequisites
 
@@ -74,6 +79,7 @@ If deploying to a live server, ensure your environment meets the following speci
 > echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 > ```
 
+
 ## Automated Deployment (Live Server)
 
 Yìjìng includes an interactive deployment script for bare-metal VPS provisioning. Run this directly on your server:
@@ -83,7 +89,9 @@ mkdir -p yijing && cd yijing && curl -sL [https://api.github.com/repos/Psyzsm/Yi
 
 _The setup routine will configure Caddy, generate cryptographic HMAC parameters, construct the Docker Compose manifest, and map persistent volumes._
 
+
 ## Configuration & Personalization
+
 Personal data, social links, and application lists are centralized. To personalize your portfolio, copy the template and edit it:
 
 ```
@@ -91,6 +99,25 @@ cp yijing.config.example.ts yijing.config.ts
 nano yijing.config.ts
 ```
 _The core site.ts auto-imports from this configuration file, meaning you never have to manually edit the React components to personalize your portfolio._
+
+
+## Ghost CMS CSS Injection
+
+To ensure the Ghost CMS aesthetics matches the parent OS environment (removing default footers, adjusting viewport constraints), you will need to inject custom CSS into the Ghost Admin panel. You can find the Code Injection payload in the [Header Injection Documentation](https://blog.psyzsm.com/header-injection/).
+
+
+## Applying Updates & Troubleshooting
+
+Whenever you change your background image or alter your yijing.config.ts configuration, apply the changes by running inside the yijing folder:
+```
+./update.sh
+```
+
+If the OS environment fails to reflect your recent changes, it is likely due to Docker caching the previous build layers. Force Docker to flush its cache and recompile the OS engine:
+```
+docker compose build --no-cache yijing-os && docker compose up -d
+```
+
 
 ## Local Development (Non-Docker)
 If you wish to modify the React components or test themes locally without spinning up the entire container stack:
@@ -108,6 +135,7 @@ pnpm dev
 ```
 _(Note: Local development defaults to mock data if the Ghost CMS environment variables are missing from your .env.local file)._
 
+
 ## Environment Variables Reference
 
 The automated `setup.sh` script generates these for you, but if you are configuring manually, your `.env.local` requires the following:
@@ -120,6 +148,7 @@ The automated `setup.sh` script generates these for you, but if you are configur
 | `SMTP_PORT` | No | Mail server port. | `587` |
 | `SMTP_USER` | No | Email authentication user. | `your_email@gmail.com` |
 | `SMTP_PASS` | No | Email app password (Do not use standard password). | `abcd1234efgh5678` |
+
 
 ## Security & Known Limitations
 
