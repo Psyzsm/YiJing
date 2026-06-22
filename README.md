@@ -148,6 +148,8 @@ The automated `setup.sh` script generates these for you, but if you are configur
 | `SMTP_PORT` | No | Mail server port. | `587` |
 | `SMTP_USER` | No | Email authentication user. | `your_email@gmail.com` |
 | `SMTP_PASS` | No | Email app password (Do not use standard password). | `abcd1234efgh5678` |
+| `NEXT_PUBLIC_LINKEDIN_URL` | No | Your Linkedin URL. | `https://linkedin.com/in/YourURL` |
+| `NEXT_PUBLIC_GITHUB_URL` | No | Your GitHub URL. | `https://github.com/yourGithub` |
 
 
 ## Security & Known Limitations
