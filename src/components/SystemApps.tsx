@@ -286,8 +286,20 @@ export function SourceAppContent() {
 // 5. MINDMAP APP (SYSTEM BRIDGE)
 // ----------------------------------------------------------------------
 export function MindmapAppContent() {
-  // Read the configuration to determine where the Mindmap is located
-  const mindmapPath = yijingConfig.site.routingMode === "os-root" ? "/mindmap" : "/";
+  // Default to "/" for SSR to prevent hydration mismatch errors
+  const [mindmapPath, setMindmapPath] = useState("/");
+
+  useEffect(() => {
+    // [PROXY BYPASS]: If the user is on the portfolio subdomain, the Next.js
+    // middleware forces all relative "/" traffic back to the portfolio. 
+    // instead dynamically strip the subdomain to escape back to the root domain.
+    if (window.location.hostname.startsWith("portfolio.")) {
+      setMindmapPath(`${window.location.protocol}//${window.location.hostname.replace("portfolio.", "")}`);
+    } else {
+      // If it is the demo.psyzsm.com or localhost, respect the config file
+      setMindmapPath(yijingConfig.site.routingMode === "os-root" ? "/mindmap" : "/");
+    }
+  }, []);
 
   return (
     <div className="p-6 flex flex-col h-full items-center justify-center text-center bg-antique-50/30">
