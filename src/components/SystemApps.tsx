@@ -14,6 +14,7 @@
 import React, { useState, useEffect } from "react";
 import { WorksIcon, SourceIcon, MindmapIcon } from "@/components/icons";
 import 'altcha';
+import { yijingConfig } from "../../yijing.config";
 
 // ----------------------------------------------------------------------
 // 1. ALTCHA WIDGET (WEB COMPONENT)
@@ -285,6 +286,9 @@ export function SourceAppContent() {
 // 5. MINDMAP APP (SYSTEM BRIDGE)
 // ----------------------------------------------------------------------
 export function MindmapAppContent() {
+  // Read the configuration to determine where the Mindmap is located
+  const mindmapPath = yijingConfig.site.routingMode === "os-root" ? "/mindmap" : "/";
+
   return (
     <div className="p-6 flex flex-col h-full items-center justify-center text-center bg-antique-50/30">
       <div className="w-16 h-16 bg-charcoal-200/50 rounded-2xl flex items-center justify-center shadow-inner border border-charcoal-300 mb-4">
@@ -295,7 +299,7 @@ export function MindmapAppContent() {
         Ready to explore the rest of the ecosystem? This will close the desktop environment and launch the interactive node graph.
       </p>
       <a 
-        href="/" 
+        href={mindmapPath} 
         className="px-6 py-2.5 bg-charcoal-900 hover:bg-blush-500 active:bg-blush-600 text-antique-50 rounded-lg font-bold text-[12px] tracking-widest transition-all shadow-md flex items-center gap-2"
       >
         LAUNCH MIND MAP
