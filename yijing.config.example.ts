@@ -31,8 +31,7 @@ export const yijingConfig = {
   os: {
     // [CUSTOM APPS]: Build your own windows! 
     // Create as many apps as you want. The engine will auto-generate the UI for you.
-    // Types available: "text" | "list" | "iframe"
-    // Below are examples of the three types
+    // Types available: "text" | "list" | "iframe" | "link"
     customApps: [
       {
         id: "about",
@@ -68,6 +67,17 @@ export const yijingConfig = {
         title: "Playlist",
         icon: "Music",
         url: "https://open.spotify.com/embed/playlist/YOUR_PLAYLIST_ID" // Must be an embed-friendly URL
+      },
+      // Example of a static CTA link (perfect for source code or resume links)
+      {
+        id: "source",
+        type: "link",
+        title: "Source Code",
+        icon: "Github",
+        header: "Yìjìng OS",
+        content: "This digital environment is built on the open-source Yìjìng template. If you would like to deploy your own instance of this desktop portfolio, the source code and documentation are freely available.",
+        buttonText: "VIEW REPOSITORY",
+        url: "https://github.com/Psyzsm/Yijing"
       }
     ],
 
@@ -76,7 +86,6 @@ export const yijingConfig = {
     systemApps: {
       enableWorks: true,    // Requires Ghost CMS environment variables in .env.local
       enableContact: true,  // Requires Altcha and SMTP environment variables in .env.local
-      enableSource: true,   // Displays a link to the open-source Yìjìng repo
       enableMindmap: true   // Toggles the Mind Map launcher app on the desktop
     }
   },

@@ -12,7 +12,7 @@
 
 "use client";
 import React, { useState, useEffect } from "react";
-import { WorksIcon, SourceIcon, MindmapIcon } from "@/components/icons";
+import { WorksIcon, MindmapIcon } from "@/components/icons";
 import 'altcha';
 import { yijingConfig } from "../../yijing.config";
 
@@ -263,27 +263,7 @@ export function WorksAppContent() {
 }
 
 // ----------------------------------------------------------------------
-// 4. SOURCE APP (STATIC LINKER)
-// ----------------------------------------------------------------------
-export function SourceAppContent() {
-  return (
-    <div className="p-6 flex flex-col h-full items-center justify-center text-center bg-antique-50/30">
-      <div className="w-16 h-16 bg-charcoal-200/50 rounded-2xl flex items-center justify-center shadow-inner border border-charcoal-300 mb-4">
-        <SourceIcon className="w-8 h-8 text-charcoal-800" />
-      </div>
-      <h3 className="text-[18px] font-bold text-charcoal-950 mb-2 tracking-wide">Yìjìng OS</h3>
-      <p className="text-[13px] text-charcoal-700 mb-8 max-w-[85%] leading-relaxed font-medium">
-        This digital environment is built on the open-source Yìjìng template. If you would like to deploy your own instance of this desktop portfolio, the source code and documentation are freely available.
-      </p>
-      <a href="https://github.com/Psyzsm/Yijing" target="_blank" rel="noreferrer" className="px-6 py-2.5 bg-charcoal-900 hover:bg-blush-500 active:bg-blush-600 text-antique-50 rounded-lg font-bold text-[12px] tracking-widest transition-all shadow-md flex items-center gap-2">
-        VIEW REPOSITORY
-      </a>
-    </div>
-  );
-}
-
-// ----------------------------------------------------------------------
-// 5. MINDMAP APP (SYSTEM BRIDGE)
+// 4. MINDMAP APP (SYSTEM BRIDGE)
 // ----------------------------------------------------------------------
 export function MindmapAppContent() {
   // Default to "/" for SSR to prevent hydration mismatch errors
