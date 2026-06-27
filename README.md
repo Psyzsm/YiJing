@@ -9,7 +9,7 @@
 
 https://github.com/user-attachments/assets/09cdc587-5538-453c-8169-8d987e583446
 
-**[Live Demonstration](https://demo.psyzsm.com) | [Architecture Documentation](https://blog.psyzsm.com/yijing/)**
+**[Live Demonstration](https://demo.psyzsm.com)** | **[Architecture Documentation](https://blog.psyzsm.com/yijing/)** | **[How to setup Guide](https://blog.psyzsm.com/yijing-os-guide/)**
 
 Yìjìng OS explores an alternative navigation paradigm where applications, documents, and routes are represented as a dynamic topology graph rather than traditional menus. This serves both as a single-user portfolio platform and an experiment in web-native desktop environments.
 
