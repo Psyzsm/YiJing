@@ -73,7 +73,7 @@ export const yijingConfig = {
         id: "source",
         type: "link",
         title: "Source Code",
-        icon: "Github",
+        icon: "github",
         header: "Yìjìng OS",
         content: "This digital environment is built on the open-source Yìjìng template. If you would like to deploy your own instance of this desktop portfolio, the source code and documentation are freely available.",
         buttonText: "VIEW REPOSITORY",
