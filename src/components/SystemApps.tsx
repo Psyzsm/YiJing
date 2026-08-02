@@ -40,15 +40,11 @@ export function AltchaWidget({ challengeurl, hidefooter }: { challengeurl: strin
 // 2. CONTACT APP (STATE MACHINE & SECURE PIPELINE)
 // ----------------------------------------------------------------------
 export function ContactAppContent() {
-  // [STATE MACHINE]: Explicit string-based states instead of complex boolean flags
-  // (e.g. isLoading, isSuccess, isLocked) prevents impossible UI states.
   const [step, setStep] = useState<"locked" | "unlocking" | "unlocked" | "sending" | "success">("locked");
   const [errorMsg, setErrorMsg] = useState("");
   
-  // [SECURITY PIPELINE]: The Honeypot field (hidden via CSS) catches dumb bots
   const [honeypot, setHoneypot] = useState("");
   const [savedPayload, setSavedPayload] = useState<string | null>(null);
-  const [links, setLinks] = useState<{linkedin: string, github: string} | null>(null);
 
   const handleUnlock = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -69,17 +65,13 @@ export function ContactAppContent() {
       const data = await response.json().catch(() => ({})); 
       if (!response.ok) throw new Error(data.error || 'Verification failed.');
       
-      if (data.linkedin) {
-        setLinks(data);
-        // Save the valid PoW payload so the user doesn't have to solve it again to send another email
-        setSavedPayload(altchaPayload); 
-        setStep("unlocked");
-      }
+      setSavedPayload(altchaPayload); 
+      setStep("unlocked");
+      
     } catch (err: unknown) {
       setErrorMsg(err instanceof Error ? err.message : "Verification failed. Please try again.");
       setStep("locked");
       
-      // Imperatively reset the Web Component if validation fails
       const widget = document.querySelector('altcha-widget');
       if (widget && 'reset' in widget && typeof widget.reset === 'function') {
         (widget.reset as () => void)();
@@ -137,8 +129,8 @@ export function ContactAppContent() {
           <div className="mb-5 pb-5 border-b-2 border-charcoal-300 border-dashed">
             <h3 className="text-[16px] font-bold mb-3 text-charcoal-950">Connect</h3>
             <div className="flex gap-3">
-              <a href={links?.linkedin} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-3 py-1.5 bg-charcoal-200/50 hover:bg-blush-500 hover:text-antique-50 text-charcoal-950 rounded-lg font-bold border border-charcoal-300 transition-colors shadow-sm text-[12px]">🔗 LinkedIn</a>
-              <a href={links?.github} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-3 py-1.5 bg-charcoal-200/50 hover:bg-blush-500 hover:text-antique-50 text-charcoal-950 rounded-lg font-bold border border-charcoal-300 transition-colors shadow-sm text-[12px]">💻 GitHub</a>
+              <a href={process.env.NEXT_PUBLIC_LINKEDIN_URL || "#"} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-3 py-1.5 bg-charcoal-200/50 hover:bg-blush-500 hover:text-antique-50 text-charcoal-950 rounded-lg font-bold border border-charcoal-300 transition-colors shadow-sm text-[12px]">🔗 LinkedIn</a>
+              <a href={process.env.NEXT_PUBLIC_GITHUB_URL || "#"} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-3 py-1.5 bg-charcoal-200/50 hover:bg-blush-500 hover:text-antique-50 text-charcoal-950 rounded-lg font-bold border border-charcoal-300 transition-colors shadow-sm text-[12px]">💻 GitHub</a>
             </div>
           </div>
           <h3 className="text-[16px] font-bold mb-4 text-charcoal-950">Direct Message</h3>
